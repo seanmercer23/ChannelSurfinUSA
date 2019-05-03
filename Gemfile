@@ -16,6 +16,9 @@ gem 'puma', '~> 3.11'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
+# Use Json Web Token (JWT) for token based authentication
+gem 'jwt'
+
 gem 'pry-rails', :group => :development
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
