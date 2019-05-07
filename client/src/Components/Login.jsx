@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-
-// This component handles our login form and has a link to the register form
 const Login = (props) => {
 
   return (
@@ -10,8 +8,8 @@ const Login = (props) => {
       <h2>login</h2>
       <hr />
       <form onSubmit={(e) => {
-        e.preventDefault();
-        props.handleLogin();}} >
+        e.preventDefault()
+        props.handleLogin()}} >
         <p>Username:</p>
         <input name="username" type="text" value={props.formData.username} onChange={props.handleChange} />
         <p>Password:</p>
@@ -21,7 +19,7 @@ const Login = (props) => {
         <Link to="/register">Register</Link>
       </form>
     </div>
-  );
+  )
 }
 
 export default Login;

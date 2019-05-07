@@ -19,7 +19,7 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
 
     if @video.save
-      render json: @video, status: :created, location: @video
+      render json: @video, status: :created
     else
       render json: @video.errors, status: :unprocessable_entity
     end
@@ -47,6 +47,6 @@ class VideosController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def video_params
-      params.require(:video).permit(:url)
+      params.require(:video).permit(:url, :user_id)
     end
 end

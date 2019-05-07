@@ -1,6 +1,7 @@
 const baseUrl = 'http://localhost:3000'
 
 export const loginUser = (loginData) => {
+  console.log(JSON.stringify(loginData))
   const opts = {
     method: 'POST',
     body: JSON.stringify(loginData),
@@ -42,11 +43,14 @@ const readAllVideos = () => {
   return fetch(`${baseUrl}/videos`)
     .then(resp => resp.json())
 }
-
-const updateVideo = (id, data) => {
+const readUser = (id) => {
+  return fetch(`${baseUrl}/users/${id}`)
+  .then(resp => resp.json())
+}
+const updateUser = (id, data) => {
   const opts = {
     method: 'PUT',
-    body: JSON.stringify({ video: data }),
+    body: JSON.stringify({ user: data }),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -65,6 +69,7 @@ const destroyVideo = (id) => {
 export {
   createVideo,
   readAllVideos,
-  updateVideo,
-  destroyVideo
+  updateUser,
+  destroyVideo,
+  readUser
 }
