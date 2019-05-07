@@ -1,5 +1,6 @@
 import React from 'react'
 import CreateForm from './CreateForm'
+import EditForm from './EditForm';
 
 function User (props) {
     const user = props.currentUser
@@ -32,6 +33,13 @@ function User (props) {
                 handleChange = {props.handleChange}
                 videoForm = {props.videoForm}
                 newVideo = {props.newVideo}
+            />
+            <EditForm 
+                currentUser = {props.currentUser} 
+                handleUserChange = {props.handleUserChange}
+                formData = {props.formData}
+                putUser = {props.putUser}
+                getUser = {props.getUser}
             />
             </React.Fragment>
             }

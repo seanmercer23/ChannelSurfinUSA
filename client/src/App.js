@@ -4,7 +4,7 @@ import Register from './Components/Register'
 import Videos from './Components/Videos'
 import User from './Components/User'
 import './App.css';
-import { readAllVideos, loginUser, registerUser, createVideo, readUser } from './Services/api-helper';
+import { readAllVideos, loginUser, registerUser, createVideo, readUser, updateUser } from './Services/api-helper';
 import {Route, Link} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import decode from 'jwt-decode'
@@ -16,7 +16,7 @@ class App extends Component {
     this.state = {
       videos: [],
       currentVideo: 0,
-      registerFormData: {
+      userFormData: {
         username: "",
         password: "",
         bio: "",
@@ -38,9 +38,10 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.newVideo = this.newVideo.bind(this)
     this.handleLogout = this.handleLogout.bind(this)
-    this.registerHandleChange = this.registerHandleChange.bind(this)
+    this.handleUserChange = this.handleUserChange.bind(this)
     this.handleRegisterLogin = this.handleRegisterLogin.bind(this)
     this.getUser = this.getUser.bind(this)
+    this.putUser = this.putUser.bind(this)
   }
 
   async componentDidMount() {
@@ -53,7 +54,7 @@ class App extends Component {
     this.getUser(this.state.currentUser.user_id)
   }
 
-//~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   async handleLogin() {
     const userData = await loginUser(this.state.authFormData);
@@ -69,12 +70,12 @@ class App extends Component {
   }
 
   async handleRegisterLogin() {
-    const userData = await loginUser(this.state.registerFormData);
+    const userData = await loginUser(this.state.userFormData);
     this.setState({
       currentUser: decode(userData.token)
     })
     localStorage.setItem("jwt", userData.token)
-    this.setState({registerFormData: {
+    this.setState({userFormData: {
       username: "",
       password: "",
       bio: "",
@@ -84,7 +85,7 @@ class App extends Component {
 
   async handleRegister(e) {
     e.preventDefault();
-    await registerUser(this.state.registerFormData);
+    await registerUser(this.state.userFormData);
     this.handleRegisterLogin();
     this.getUser()
   }
@@ -96,11 +97,11 @@ class App extends Component {
     })
   }
 
-  registerHandleChange(e) {
+  handleUserChange(e) {
     const { name, value } = e.target;
     this.setState(prevState => ({
-      registerFormData: {
-        ...prevState.registerFormData,
+      userFormData: {
+        ...prevState.userFormData,
         [name]: value
       }
     }));
@@ -117,10 +118,10 @@ class App extends Component {
   }
 
   async getUser() {
-    const user = await readUser(this.state.currentUser.user_id)
+    const user = await readUser(this.state.currentUser.user_id || this.state.currentUser.id)
     this.setState({currentUser: user})
   }
-//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~Data~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   async getAllVideos() {
     const videos = await readAllVideos()
@@ -158,6 +159,17 @@ handleChange(e) {
   }))
 }
 
+async putUser(e) {
+  let data = {
+    username: this.state.userFormData.username || this.state.currentUser.username,
+    password_digest: this.state.currentUser.password_digest,
+    bio: this.state.userFormData.bio || this.state.currentUser.bio,
+    pic: this.state.userFormData.pic || this.state.currentUser.pic
+  }
+  await updateUser(this.state.currentUser.id, data)
+  this.getUser()
+}
+
 async newVideo(e) {
   e.preventDefault()
   const createdVideo = {
@@ -170,6 +182,7 @@ async newVideo(e) {
       videoUrl: "",
       user_id: ""
   }))
+  this.getAllVideos()
 }
   render () {
     return (
@@ -181,8 +194,12 @@ async newVideo(e) {
           <User 
             currentUser = {this.state.currentUser}
             handleChange = {this.handleChange}
+            handleUserChange = {this.handleUserChange}
             newVideo = {this.newVideo}
             url = {this.state.videoUrl}
+            formData = {this.state.userFormData}
+            putUser = {this.putUser}
+            getUser = {this.getUser}
           />
         )}
           
@@ -203,8 +220,8 @@ async newVideo(e) {
         <Route exact path="/register" render={() => (
           <Register
             handleRegister={this.handleRegister}
-            handleChange={this.registerHandleChange}
-            formData={this.state.registerFormData}
+            handleChange={this.userHandleChange}
+            formData={this.state.userFormData}
             handleLogout={this.handleLogout} />)} />
       </div>
     );

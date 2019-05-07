@@ -55,7 +55,7 @@ const updateUser = (id, data) => {
       'Content-Type': 'application/json'
     }
   }
-  return fetch(`${baseUrl}/videos/${id}`, opts)
+  return fetch(`${baseUrl}/users/${id}`, opts)
     .then(resp => resp.json())
 }
 
