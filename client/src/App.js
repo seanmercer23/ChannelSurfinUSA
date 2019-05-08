@@ -28,7 +28,8 @@ class App extends Component {
       },
       currentUser: null,
       videoUrl: "",
-      user_id: ""
+      user_id: "",
+      userVids: []
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
@@ -43,10 +44,10 @@ class App extends Component {
     this.getUser = this.getUser.bind(this)
     this.putUser = this.putUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
+    this.getUserVideos = this.getUserVideos.bind(this)
   }
 
   async componentDidMount() {
-    this.getAllVideos()
     const checkUser = localStorage.getItem("jwt");
     if (checkUser) {
       const user = await decode(checkUser);
@@ -55,21 +56,33 @@ class App extends Component {
     if(this.state.currentUser) {
     this.getUser(this.state.currentUser.user_id)
     }
+    await this.getAllVideos()
+    this.getUserVideos()
   }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   async handleLogin() {
-    const userData = await loginUser(this.state.authFormData);
-    this.setState({
-      currentUser: decode(userData.token)
-    })
-    localStorage.setItem("jwt", userData.token)
-    this.setState({authFormData: {
-      username: "",
-      password: ""
-    }})
-    this.getUser()
+    try {
+      const userData = await loginUser(this.state.authFormData);
+      this.setState({
+        currentUser: decode(userData.token)
+      })
+      localStorage.setItem("jwt", userData.token)
+      this.setState({authFormData: {
+        username: "",
+        password: ""
+      }})
+      await this.getUser()
+      this.props.history.push(`/users/${this.state.currentUser.username}`)  
+    } catch (error) {
+      console.log(error)
+      alert("Invalid credentials try again")
+      this.setState({authFormData: {
+        username: "",
+        password: ""
+      }})
+    }
   }
 
   async handleRegisterLogin() {
@@ -130,6 +143,7 @@ class App extends Component {
   async getAllVideos() {
     const videos = await readAllVideos()
     this.setState({videos})
+    this.getUserVideos()
   }
 
 nextVideo() {
@@ -164,6 +178,7 @@ handleChange(e) {
 }
 
 async putUser(e) {
+  e.preventDefault()
   let data = {
     username: this.state.userFormData.username || this.state.currentUser.username,
     password_digest: this.state.currentUser.password_digest,
@@ -193,12 +208,14 @@ async deleteUser() {
   await destroyUser(this.state.currentUser.id)
   this.handleLogout()
 }
+
+getUserVideos() {
+  const userVids = this.state.videos.filter(video => video.user_id === this.state.currentUser.id)
+  this.setState({userVids})
+}
   render () {
     return (
       <div className="App">
-      {this.state.currentUser && <div><h1>{this.state.currentUser.username}</h1>
-      <Link to={`users/${this.state.currentUser.username}`}>Profile</Link>
-      </div>}
         <Route exact path="/users/:username" render={() => (
           <User 
             currentUser = {this.state.currentUser}
@@ -211,13 +228,16 @@ async deleteUser() {
             getUser = {this.getUser}
             deleteUser = {this.deleteUser}
             handleLogout = {this.handleLogout}
+            userVids = {this.state.userVids}
           />
         )}
-          
         />
         <Route exact path="/videos" render={() => (
           <Videos
+            url = {this.state.videoUrl}
+            newVideo = {this.newVideo}
             videos={this.state.videos}
+            handleChange = {this.handleChange}
             currentVideo={this.state.currentVideo}
             currentUser={this.state.currentUser}
             next={this.nextVideo}

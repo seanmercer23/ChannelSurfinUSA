@@ -3,7 +3,7 @@ import React from 'react'
 function CreateForm (props) {
     return (
         <div>
-            <h2>Add a new video</h2>
+            <h3>Add a new video</h3>
             <form onSubmit={props.newVideo}>
                 <label>Video url here:</label>
                 <input 

@@ -1,10 +1,10 @@
 import React from 'react'
-import CreateForm from './CreateForm'
 import EditForm from './EditForm';
 import {withRouter} from 'react-router'
 
 function User (props) {
     const user = props.currentUser
+    let counter = 1
     return (
         <div>
             {props.currentUser &&
@@ -29,12 +29,6 @@ function User (props) {
                     "No bio entered"
                     }
                 </p>
-                <CreateForm
-                currentUser = {props.currentUser} 
-                handleChange = {props.handleChange}
-                videoForm = {props.videoForm}
-                newVideo = {props.newVideo}
-            />
             <EditForm 
                 currentUser = {props.currentUser} 
                 handleUserChange = {props.handleUserChange}
@@ -42,8 +36,19 @@ function User (props) {
                 putUser = {props.putUser}
                 getUser = {props.getUser}
             />
+            <br />
             <button onClick={props.deleteUser}>Delete Account</button>
+            &nbsp;
             <button onClick={props.handleLogout}>Logout</button>
+            <br />
+            <h3>Your Videos</h3>
+            {props.userVids.map(video => (
+                <React.Fragment key={video.id}>
+                    <a href={video.url}>{`#${counter++}`}</a>
+                    &nbsp;
+                    &nbsp;
+                </React.Fragment>
+            ))}
             </React.Fragment>
             }
         </div>
