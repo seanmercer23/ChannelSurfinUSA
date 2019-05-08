@@ -1,6 +1,7 @@
 import React from 'react'
 import CreateForm from './CreateForm'
 import EditForm from './EditForm';
+import {withRouter} from 'react-router'
 
 function User (props) {
     const user = props.currentUser
@@ -41,10 +42,12 @@ function User (props) {
                 putUser = {props.putUser}
                 getUser = {props.getUser}
             />
+            <button onClick={props.deleteUser}>Delete Account</button>
+            <button onClick={props.handleLogout}>Logout</button>
             </React.Fragment>
             }
         </div>
     )   
 }
 
-export default User
+export default withRouter(User)

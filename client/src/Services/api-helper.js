@@ -59,17 +59,17 @@ const updateUser = (id, data) => {
     .then(resp => resp.json())
 }
 
-const destroyVideo = (id) => {
+const destroyUser = (id) => {
   const opts = {
     method: 'DELETE'
   }
-  return fetch(`${baseUrl}/videos/${id}`, opts)
+  return fetch(`${baseUrl}/users/${id}`, opts)
 }
 
 export {
   createVideo,
   readAllVideos,
   updateUser,
-  destroyVideo,
+  destroyUser,
   readUser
 }

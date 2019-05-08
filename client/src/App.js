@@ -4,7 +4,7 @@ import Register from './Components/Register'
 import Videos from './Components/Videos'
 import User from './Components/User'
 import './App.css';
-import { readAllVideos, loginUser, registerUser, createVideo, readUser, updateUser } from './Services/api-helper';
+import { readAllVideos, loginUser, registerUser, createVideo, readUser, updateUser, destroyUser } from './Services/api-helper';
 import {Route, Link} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import decode from 'jwt-decode'
@@ -42,6 +42,7 @@ class App extends Component {
     this.handleRegisterLogin = this.handleRegisterLogin.bind(this)
     this.getUser = this.getUser.bind(this)
     this.putUser = this.putUser.bind(this)
+    this.deleteUser = this.deleteUser.bind(this)
   }
 
   async componentDidMount() {
@@ -51,7 +52,9 @@ class App extends Component {
       const user = await decode(checkUser);
       this.setState({currentUser: user})
     }
+    if(this.state.currentUser) {
     this.getUser(this.state.currentUser.user_id)
+    }
   }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,6 +98,7 @@ class App extends Component {
     this.setState({
       currentUser: null
     })
+    this.props.history.push('/login')
   }
 
   handleUserChange(e) {
@@ -184,6 +188,11 @@ async newVideo(e) {
   }))
   this.getAllVideos()
 }
+
+async deleteUser() {
+  await destroyUser(this.state.currentUser.id)
+  this.handleLogout()
+}
   render () {
     return (
       <div className="App">
@@ -200,6 +209,8 @@ async newVideo(e) {
             formData = {this.state.userFormData}
             putUser = {this.putUser}
             getUser = {this.getUser}
+            deleteUser = {this.deleteUser}
+            handleLogout = {this.handleLogout}
           />
         )}
           

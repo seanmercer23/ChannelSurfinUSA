@@ -4,11 +4,7 @@ function EditForm (props) {
     return (
         <div>
             <h2>Update your profile</h2>
-            <form onSubmit={async (e) => {
-                e.preventDefault()
-                await props.putUser()
-                props.getUser(props.currentUser.id)
-            }}>
+            <form onSubmit={props.putUser}>
                 <label>Username:</label>
                 <input 
                     type="text" 
