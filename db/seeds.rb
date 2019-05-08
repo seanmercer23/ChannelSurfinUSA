@@ -5,7 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user1 = User.create!(username: "sean", password_digest: "abcdefghijk", bio: "I am Sean", pic: "https://i.imgur.com/y3YnRBc.jpg")
+user1 = User.create!(username: "sean", password_digest: "abcdefghijklmno", bio: "I am Sean", pic: "https://i.imgur.com/y3YnRBc.jpg")
 
 video1 = Video.create!(url: "https://www.youtube.com/watch?v=1UnIDL-eHOs", user_id: 1)
 video2 = Video.create!(url: "https://www.youtube.com/watch?v=lvh6NLqKRfs", user_id: 1)
