@@ -5,7 +5,7 @@ import Videos from './Components/Videos'
 import User from './Components/User'
 import './App.css';
 import { readAllVideos, loginUser, registerUser, createVideo, readUser, updateUser, destroyUser } from './Services/api-helper';
-import {Route, Link} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import decode from 'jwt-decode'
 
@@ -29,7 +29,8 @@ class App extends Component {
       currentUser: null,
       videoUrl: "",
       user_id: "",
-      userVids: []
+      userVids: [],
+      isPlaying: true
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
@@ -45,6 +46,7 @@ class App extends Component {
     this.putUser = this.putUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
     this.getUserVideos = this.getUserVideos.bind(this)
+    this.playPause = this.playPause.bind(this)
   }
 
   async componentDidMount() {
@@ -54,7 +56,7 @@ class App extends Component {
       this.setState({currentUser: user})
     }
     if(this.state.currentUser) {
-    this.getUser(this.state.currentUser.user_id)
+    this.getUser()
     }
     await this.getAllVideos()
     this.getUserVideos()
@@ -213,6 +215,10 @@ getUserVideos() {
   const userVids = this.state.videos.filter(video => video.user_id === this.state.currentUser.id)
   this.setState({userVids})
 }
+
+playPause() {
+  this.setState({isPlaying: !this.state.isPlaying})
+}
   render () {
     return (
       <div className="App">
@@ -241,7 +247,9 @@ getUserVideos() {
             currentVideo={this.state.currentVideo}
             currentUser={this.state.currentUser}
             next={this.nextVideo}
-            previous={this.previousVideo} />)} />
+            previous={this.previousVideo}
+            isPlaying={this.state.isPlaying}
+            playPause={this.playPause} />)} />
         <Route exact path="/login" render={() => (
           <Login
             handleLogin={this.handleLogin}
