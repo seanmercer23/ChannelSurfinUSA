@@ -1,6 +1,6 @@
 class User < ApplicationRecord
-    has_many :videos
     has_secure_password
+    has_many :videos
     validates :username, presence: true, uniqueness: true
     validates :password,
             length: { minimum: 6 },

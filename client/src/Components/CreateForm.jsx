@@ -4,7 +4,7 @@ function CreateForm (props) {
     return (
         <div className="create">
             <h3>Add a new video</h3>
-            <form onSubmit={props.newVideo}>
+            <form className="create-form" onSubmit={props.newVideo}>
                 <label>Video url here:</label>
                 <input 
                     type="text" 

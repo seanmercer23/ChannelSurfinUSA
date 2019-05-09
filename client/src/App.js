@@ -59,7 +59,9 @@ class App extends Component {
     this.getUser()
     }
     await this.getAllVideos()
+    if(this.state.currentUser) {
     this.getUserVideos()
+    }
   }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -145,7 +147,9 @@ class App extends Component {
   async getAllVideos() {
     const videos = await readAllVideos()
     this.setState({videos})
+    if(this.state.currentUser) {
     this.getUserVideos()
+    }
   }
 
 nextVideo() {
@@ -259,7 +263,7 @@ playPause() {
         <Route exact path="/register" render={() => (
           <Register
             handleRegister={this.handleRegister}
-            handleChange={this.userHandleChange}
+            handleChange={this.handleUserChange}
             formData={this.state.userFormData}
             handleLogout={this.handleLogout} />)} />
       </div>

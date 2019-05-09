@@ -20,6 +20,7 @@ Bundler.require(*Rails.groups)
 module ChannelSurfin
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+    config.enable_dependency_loading = true
     config.load_defaults 5.2
     config.autoload_paths << Rails.root.join('lib')
     # Settings in config/environments/* take precedence over those specified here.
