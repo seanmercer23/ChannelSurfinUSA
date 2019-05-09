@@ -29,8 +29,7 @@ class App extends Component {
       currentUser: null,
       videoUrl: "",
       user_id: "",
-      userVids: [],
-      isPlaying: true
+      userVids: []
     }
     this.handleLogin = this.handleLogin.bind(this)
     this.handleRegister = this.handleRegister.bind(this)
@@ -46,7 +45,6 @@ class App extends Component {
     this.putUser = this.putUser.bind(this)
     this.deleteUser = this.deleteUser.bind(this)
     this.getUserVideos = this.getUserVideos.bind(this)
-    this.playPause = this.playPause.bind(this)
   }
 
   async componentDidMount() {
@@ -220,10 +218,6 @@ getUserVideos() {
   const userVids = this.state.videos.filter(video => video.user_id === this.state.currentUser.id)
   this.setState({userVids})
 }
-
-playPause() {
-  this.setState({isPlaying: !this.state.isPlaying})
-}
   render () {
     return (
       <div className="App">
@@ -252,9 +246,8 @@ playPause() {
             currentVideo={this.state.currentVideo}
             currentUser={this.state.currentUser}
             next={this.nextVideo}
-            previous={this.previousVideo}
-            isPlaying={this.state.isPlaying}
-            playPause={this.playPause} />)} />
+            previous={this.previousVideo} 
+            handleLogout = {this.handleLogout}/>)} />
         <Route exact path="/login" render={() => (
           <Login
             handleLogin={this.handleLogin}

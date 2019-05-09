@@ -2,25 +2,25 @@ import React from 'react'
 
 function EditForm (props) {
     return (
-        <div>
-            <h2>Update your profile</h2>
-            <form onSubmit={props.putUser}>
-                <label>Username:</label>
+        <div className="login edit">
+            <form className="loginForm" onSubmit={props.putUser}>
+                <h2>Update your profile</h2>
                 <input 
                     type="text" 
+                    placeholder="username"
                     name="username"
                     value={props.formData.username}
                     onChange={props.handleUserChange}/>
-                <label>Picture:</label>
                 <input 
                     type="text" 
                     name="pic"
+                    placeholder="pic"
                     value={props.formData.pic}
                     onChange={props.handleUserChange}/>
-                <label>Bio:</label>
                 <input 
                     type="text" 
                     name="bio"
+                    placeholder="bio"
                     value={props.formData.bio}
                     onChange={props.handleUserChange}/>
                 <button>Submit</button>

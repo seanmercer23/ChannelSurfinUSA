@@ -3,7 +3,7 @@ import ReactPlayer from 'react-player'
 import CreateForm from './CreateForm'
 import NextButton from '../assets/Actions-go-up-icon.png'
 import PreviousButton from '../assets/Actions-go-down-icon.png'
-import PlayButton from '../assets/Play-Hot-icon.png'
+import {Link} from 'react-router-dom'
 
 function Videos(props) {
     return (
@@ -12,12 +12,13 @@ function Videos(props) {
                 <div className="screen">
                     <ReactPlayer 
                         url={props.videos[props.currentVideo].url}  
-                        playing={false}
+                        playing={true}
+                        style={{pointerEvents: "initial"}}
                         />
                 </div>
             }
             <div className="frame">
-            <img className="frame-image" src="https://i.imgur.com/ZrSCTtE.png" alt="frame"/>
+                <img className="frame-image" src="https://i.imgur.com/ZrSCTtE.png" alt="frame"/>
             </div>
             <div className="buttons">
                 <img
@@ -34,7 +35,8 @@ function Videos(props) {
                     onClick= {props.previous}
                 />
              </div>
-             <img src={PlayButton} className="play-pause" onClick={props.playPause} />
+             {props.currentUser && <Link to={`users/${props.currentUser.username}`}><button className="toProfile">Profile</button></Link>}
+             <button onClick={props.handleLogout} className="logout">Logout</button>
             <CreateForm
                 currentUser = {props.currentUser} 
                 handleChange = {props.handleChange}

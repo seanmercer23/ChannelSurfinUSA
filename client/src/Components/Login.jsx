@@ -10,8 +10,9 @@ const Login = (props) => {
         props.handleLogin()}} >
         <input className="loginField" placeholder="username" name="username" type="text" value={props.formData.username} onChange={props.handleChange} />
         <input className="loginField" placeholder="password" name="password" type="password" value={props.formData.password} onChange={props.handleChange} />
-        <button>Login</button>
-        <Link to="/register">Register</Link>
+        <button className="loginButton">Login</button>
+        <br />
+        <Link to="/register"><button className="registerButton">Register</button></Link>
       </form>
     </div>
   )

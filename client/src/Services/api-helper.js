@@ -1,4 +1,4 @@
-const baseUrl = 'http://channelsurfusa.herokuapp.com'
+const baseUrl = 'http://localhost:3000'
 
 export const loginUser = (loginData) => {
   const opts = {

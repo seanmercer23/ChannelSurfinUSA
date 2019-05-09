@@ -4,20 +4,12 @@ import React from 'react';
 const Register = (props) => {
 
   return (
-    <div className="auth-container">
-      <h2>Register</h2>
-      <button onClick={props.handleLogout}>Logout</button>
-      <hr />
-      <form onSubmit={props.handleRegister} >
-        <p>Username:</p>
-        <input name="username" type="text" value={props.formData.username} onChange={props.handleChange} />
-        <p>Password:</p>
-        <input name="password" type="password" value={props.formData.password} onChange={props.handleChange} />
-        <p>Bio:</p>
-        <input name="bio" type="text" value={props.formData.bio} onChange={props.handleChange} />
-        <p>Picture:</p>
-        <input name="pic" type="text" value={props.formData.pic} onChange={props.handleChange} />
-        <hr/>
+    <div className="register">
+      <form className="loginForm" onSubmit={props.handleRegister} >
+        <input placeholder="username" name="username" type="text" value={props.formData.username} onChange={props.handleChange} />
+        <input placeholder="password" name="password" type="password" value={props.formData.password} onChange={props.handleChange} />
+        <input placeholder="bio" name="bio" type="text" value={props.formData.bio} onChange={props.handleChange} />
+        <input placeholder="pic" name="pic" type="text" value={props.formData.pic} onChange={props.handleChange} />
         <button>Register</button>
       </form>
     </div>
