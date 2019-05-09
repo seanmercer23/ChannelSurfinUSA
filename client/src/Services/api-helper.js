@@ -1,7 +1,6 @@
-const baseUrl = 'http://localhost:3000'
+const baseUrl = 'http://channelsurfusa.herokuapp.com'
 
 export const loginUser = (loginData) => {
-  console.log(JSON.stringify(loginData))
   const opts = {
     method: 'POST',
     body: JSON.stringify(loginData),

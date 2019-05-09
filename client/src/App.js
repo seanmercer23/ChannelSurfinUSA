@@ -56,7 +56,7 @@ class App extends Component {
       this.setState({currentUser: user})
     }
     if(this.state.currentUser) {
-    this.getUser()
+      this.getUser()
     }
     await this.getAllVideos()
     if(this.state.currentUser) {
@@ -106,8 +106,9 @@ class App extends Component {
   async handleRegister(e) {
     e.preventDefault();
     await registerUser(this.state.userFormData);
-    this.handleRegisterLogin();
-    this.getUser()
+    await this.handleRegisterLogin();
+    await this.getUser()
+    this.props.history.push(`/users/${this.state.currentUser.username}`)  
   }
 
   handleLogout() {
