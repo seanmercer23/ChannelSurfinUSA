@@ -1,13 +1,15 @@
 import React from 'react'
 import EditForm from './EditForm';
 import {withRouter} from 'react-router'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 function User (props) {
     const user = props.currentUser
     let counter = 1
+    const token = localStorage.getItem('jwt')
     return (
         <div className="profile">
+        {!token && <Redirect to="/login"/>}
             {props.currentUser &&
             <div className="user">
                 <div className="userInfo">

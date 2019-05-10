@@ -3,11 +3,13 @@ import ReactPlayer from 'react-player'
 import CreateForm from './CreateForm'
 import NextButton from '../assets/Actions-go-up-icon.png'
 import PreviousButton from '../assets/Actions-go-down-icon.png'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
 
 function Videos(props) {
+    const token = localStorage.getItem('jwt')
     return (
         <div className="videos">
+        {!token && <Redirect to="/login" />}
             {props.videos[0] &&
                 <div className="screen">
                     <ReactPlayer 
