@@ -8,6 +8,7 @@ import { readAllVideos, loginUser, registerUser, createVideo, readUser, updateUs
 import {Route} from 'react-router-dom'
 import {withRouter} from 'react-router'
 import decode from 'jwt-decode'
+import Welcome from './Components/Welcome';
 
 
 class App extends Component {
@@ -219,6 +220,10 @@ getUserVideos() {
   render () {
     return (
       <div className="App">
+        <Route 
+            exact path="/"
+            component={Welcome}
+          />
         <Route exact path="/users/:username" render={() => (
           <User 
             currentUser = {this.state.currentUser}

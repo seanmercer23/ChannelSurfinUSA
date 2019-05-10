@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const Login = (props) => {
 
   return (
-    <div className="login">
+    <div className="login fade-in">
       <form className="loginForm" onSubmit={(e) => {
         e.preventDefault()
         props.handleLogin()}} >
