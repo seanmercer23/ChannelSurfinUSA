@@ -18,7 +18,7 @@ Channel Surfin USA is a full stack app built with a React front end and a Rails 
 The original wirefames for this app can be found [here](https://drive.google.com/file/d/1wI9sFndfHJh8A7qU3WmBjWXStFqIYmmz/view?usp=sharing)
 
 ## ERD
-![ChannelSurfinUSA ERD](/https://i.imgur.com/KyCfh9r.png)
+![ChannelSurfinUSA ERD](https://i.imgur.com/KyCfh9r.png)
 
 ## Code Snippet
 ```nextVideo() {
