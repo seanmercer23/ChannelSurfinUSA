@@ -202,9 +202,7 @@ async newVideo(e) {
   }
   const video = await createVideo(createdVideo)
   this.setState(prevState => ({
-    videos: [...prevState.videos, video],
-      videoUrl: "",
-      user_id: ""
+    videos: [...prevState.videos, video]
   }))
   this.getAllVideos()
 }

@@ -287,10 +287,12 @@ button:hover {
   position: absolute;
   bottom: 100px;
   right: 100px;
+  z-index: 15;
 }
 
 .logout {
   position: absolute;
   bottom: 100px;
   left: 20px;
+  z-index: 15;
 }
