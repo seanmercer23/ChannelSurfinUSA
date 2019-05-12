@@ -192,7 +192,12 @@ async putUser(e) {
     pic: this.state.userFormData.pic || this.state.currentUser.pic
   }
   await updateUser(this.state.currentUser.id, data)
-  this.getUser()
+  await this.getUser()
+  this.setState({userFormData: {
+    username: "",
+    bio: "",
+    pic: ""
+  }})
 }
 
 async newVideo(e) {
