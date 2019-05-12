@@ -61,6 +61,7 @@ class App extends Component {
     if(this.state.currentUser) {
     this.getUserVideos()
     }
+    this.setState({currentVideo: Math.ceil(Math.random() * (this.state.videos.length - 1))})
   }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~Auth~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
