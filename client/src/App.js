@@ -218,7 +218,7 @@ async newVideo(e) {
     alert(`${error}`)
     console.log(error) 
   }
-  this.setState({videoUrl: ""})
+  this.setState({videoUrl: "", currentVideo: this.state.videos.length - 1}) 
 }
 
 async deleteUser() {
