@@ -239,6 +239,9 @@ getUserVideos() {
   render () {
     return (
       <div className="App">
+      <div className="mediaAlert">
+        <h1>This site is meant for desktop only</h1>
+      </div>
         <Route 
             exact path="/"
             component={Welcome}
