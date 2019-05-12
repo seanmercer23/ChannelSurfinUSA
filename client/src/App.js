@@ -202,15 +202,22 @@ async putUser(e) {
 
 async newVideo(e) {
   e.preventDefault()
-  const createdVideo = {
-    url: this.state.videoUrl,
-    user_id: this.state.currentUser.id
+  try {
+    const createdVideo = {
+      url: this.state.videoUrl,
+      user_id: this.state.currentUser.id
+    }
+    const video = await createVideo(createdVideo)
+    this.setState(prevState => ({
+      videos: [...prevState.videos, video]
+    }))
+    this.getAllVideos()
+    alert("Success!")
+  } catch (error) {
+    alert(`${error}`)
+    console.log(error) 
   }
-  const video = await createVideo(createdVideo)
-  this.setState(prevState => ({
-    videos: [...prevState.videos, video]
-  }))
-  this.getAllVideos()
+  this.setState({videoUrl: ""})
 }
 
 async deleteUser() {

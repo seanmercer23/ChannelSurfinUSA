@@ -42,8 +42,9 @@ function Videos(props) {
             <CreateForm
                 currentUser = {props.currentUser} 
                 handleChange = {props.handleChange}
-                videoForm = {props.videoForm}
+                // videoForm = {props.videoForm}
                 newVideo = {props.newVideo}
+                url = {props.url}
             />
         </div>
     )
