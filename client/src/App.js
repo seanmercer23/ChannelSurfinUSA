@@ -105,10 +105,15 @@ class App extends Component {
 
   async handleRegister(e) {
     e.preventDefault();
-    await registerUser(this.state.userFormData);
-    await this.handleRegisterLogin();
-    await this.getUser()
-    this.props.history.push(`/users/${this.state.currentUser.username}`)  
+    try {
+      await registerUser(this.state.userFormData);
+      await this.handleRegisterLogin();
+      await this.getUser()
+      this.props.history.push(`/users/${this.state.currentUser.username}`)   
+    } catch (error) {
+      console.log(error)
+      alert(error)
+    }
   }
 
   handleLogout() {

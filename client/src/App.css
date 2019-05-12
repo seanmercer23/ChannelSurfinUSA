@@ -292,8 +292,8 @@ button:hover {
 }
 
 .fade-in {
-	-webkit-animation: fade-in 4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
-	animation: fade-in 4s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	-webkit-animation: fade-in 2.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+	animation: fade-in 2.5s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
 }
 
 .welcome {
